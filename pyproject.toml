@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "django-extended-dates"
+version = "0.1.0"
+description = "Django DateTimeField supporting dates outside the standard 1-9999 range (e.g., BC dates) for PostgreSQL."
+authors = ["Your Name <you@example.com>"]
+license = "MIT" # Or your chosen license
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8" # Adjust as needed
+Django = ">=3.2" # Adjust as needed
+cftime = ">=1.5.0" # Check latest version
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
