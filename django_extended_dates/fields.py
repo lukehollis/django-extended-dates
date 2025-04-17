@@ -87,9 +87,19 @@ class ExtendedDateTimeField(models.DateTimeField):
         Converts Python cftime/datetime object to a value suitable for the database.
         Formats BC dates as 'YYYY-MM-DD HH:MM:SS BC'.
         Passes standard datetimes to parent method.
+        Accepts ISO formatted strings and attempts conversion.
         """
         if value is None:
             return value
+
+        # If it's a string, try converting it to cftime first
+        if isinstance(value, str):
+            try:
+                # Use to_python to handle string parsing (ISO, BC format, etc.)
+                value = self.to_python(value)
+            except ValidationError as e:
+                 # Re-raise or handle specific string formats if needed
+                 raise TypeError(f"Could not convert string '{value}' to cftime for DB prep: {e}")
 
         # If it's already a standard datetime within range, let Django handle it
         if isinstance(value, datetime.datetime):
